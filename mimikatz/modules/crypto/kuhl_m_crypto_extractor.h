@@ -7,16 +7,19 @@
 #include "../kuhl_m.h"
 #include "../../../modules/kull_m_crypto.h"
 #include "../../../modules/kull_m_memory.h"
+#include "../../../modules/kull_m_process.h"
 
 void kuhl_m_crypto_extractor_capi32(PKULL_M_MEMORY_ADDRESS address);
 void kuhl_m_crypto_extractor_bcrypt32(PKULL_M_MEMORY_ADDRESS address);
-#ifdef _M_X64
+#if defined(_M_X64) || defined(_M_ARM64) // TODO:ARM64
 void kuhl_m_crypto_extractor_capi64(PKULL_M_MEMORY_ADDRESS address);
 void kuhl_m_crypto_extractor_bcrypt64(PKULL_M_MEMORY_ADDRESS address);
 #endif
 
 DWORD kuhl_m_crypto_extractor_GetKeySizeForEncryptMemory(DWORD size);
 DWORD kuhl_m_crypto_extractor_GetKeySize(DWORD bits);
+
+NTSTATUS kuhl_m_crypto_extract(int argc, wchar_t * argv[]);
 
 typedef struct _KIWI_CRYPTPROV {
 	PVOID CPAcquireContext;
@@ -343,7 +346,7 @@ typedef struct _KIWI_BCRYPT_HANDLE_KEY32 {
 	DWORD32 unk0; // ?
 } KIWI_BCRYPT_HANDLE_KEY32, *PKIWI_BCRYPT_HANDLE_KEY32;
 
-#ifdef _M_X64
+#if defined(_M_X64) || defined(_M_ARM64) // TODO:ARM64
 
 typedef struct _KIWI_PRIV_STRUCT_64 {
 	DWORD64 strangeStruct;
@@ -600,7 +603,21 @@ typedef struct _KIWI_BCRYPT_HANDLE_KEY64 {
 #define RSAENH_KEY_32	0xe35a172c
 #define DSSENH_KEY_32	0xa2491d83
 
-#ifdef _M_X64
+#if defined(_M_X64) || defined(_M_ARM64) // TODO:ARM64
 #define RSAENH_KEY_64	0xe35a172cd96214a0
 #define DSSENH_KEY_64	0xa2491d83d96214a0
 #endif
+
+typedef struct _KIWI_CRYPT_SEARCH {
+	PKULL_M_MEMORY_HANDLE hMemory;
+	WORD Machine;
+	KIWI_CRYPTKEY32 ProcessKiwiCryptKey32;
+#if defined(_M_X64) || defined(_M_ARM64) // TODO:ARM64
+	KIWI_CRYPTKEY64 ProcessKiwiCryptKey64;
+#endif
+	BOOL bAllProcessKiwiCryptKey;
+	DWORD myPid;
+	DWORD prevPid;
+	DWORD currPid;
+	PCUNICODE_STRING processName;
+} KIWI_CRYPT_SEARCH, *PKIWI_CRYPT_SEARCH;
