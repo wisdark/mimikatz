@@ -1,5 +1,5 @@
 /*	Benjamin DELPY `gentilkiwi`
-	http://blog.gentilkiwi.com
+	https://blog.gentilkiwi.com
 	benjamin@gentilkiwi.com
 	Licence : https://creativecommons.org/licenses/by/4.0/
 */
@@ -10,6 +10,7 @@
 #include "modules/kuhl_m_crypto.h"
 #include "modules/sekurlsa/kuhl_m_sekurlsa.h"
 #include "modules/kerberos/kuhl_m_kerberos.h"
+#include "modules/ngc/kuhl_m_ngc.h"
 #include "modules/kuhl_m_process.h"
 #include "modules/kuhl_m_service.h"
 #include "modules/kuhl_m_privilege.h"

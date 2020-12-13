@@ -1,5 +1,5 @@
 /*	Benjamin DELPY `gentilkiwi`
-	http://blog.gentilkiwi.com
+	https://blog.gentilkiwi.com
 	benjamin@gentilkiwi.com
 	Licence : https://creativecommons.org/licenses/by/4.0/
 */
@@ -80,6 +80,14 @@ DWORD MIMIKATZ_NT_MAJOR_VERSION, MIMIKATZ_NT_MINOR_VERSION, MIMIKATZ_NT_BUILD_NU
 
 #if !defined(NCRYPT_PCP_PLATFORM_TYPE_PROPERTY)
 #define NCRYPT_PCP_PLATFORM_TYPE_PROPERTY    L"PCP_PLATFORM_TYPE"
+#endif
+
+#if !defined(TPM_RSA_SRK_SEAL_KEY)
+#define TPM_RSA_SRK_SEAL_KEY			L"MICROSOFT_PCP_KSP_RSA_SEAL_KEY_3BD1C4BF-004E-4E2F-8A4D-0BF633DCB074"
+#endif
+
+#if !defined(NCRYPT_SEALING_FLAG)
+#define NCRYPT_SEALING_FLAG				0x00000100
 #endif
 
 #if !defined(SCARD_PROVIDER_CARD_MODULE)
